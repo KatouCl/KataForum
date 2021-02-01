@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KataForum.WebApp", "KataForum.WebApp\KataForum.WebApp.csproj", "{37F13301-24D0-4632-8271-7ABDD6104075}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KataForum.Data", "KataForum.Data\KataForum.Data.csproj", "{7785E354-ACBD-4455-B95A-F3D0F6EB3E25}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37F13301-24D0-4632-8271-7ABDD6104075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37F13301-24D0-4632-8271-7ABDD6104075}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37F13301-24D0-4632-8271-7ABDD6104075}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37F13301-24D0-4632-8271-7ABDD6104075}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7785E354-ACBD-4455-B95A-F3D0F6EB3E25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7785E354-ACBD-4455-B95A-F3D0F6EB3E25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7785E354-ACBD-4455-B95A-F3D0F6EB3E25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7785E354-ACBD-4455-B95A-F3D0F6EB3E25}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AFD966A4-C05B-4014-A16E-CDE7EDA97830}
+	EndGlobalSection
+EndGlobal
