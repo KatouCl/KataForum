@@ -16,4 +16,4 @@ namespace KataForum.Data.Models
 
         public virtual IEnumerable<PostReply> PostReplies { get; set; }
     }
-}
+}
