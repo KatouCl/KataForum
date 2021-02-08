@@ -3,6 +3,7 @@ using KataForum.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,9 +11,7 @@ namespace KataForum.Service
 {
     public class ForumService : IForum
     {
-
         private readonly ApplicationDbContext _context;
-        
         public ForumService(ApplicationDbContext context)
         {
             _context = context;
@@ -21,7 +20,6 @@ namespace KataForum.Service
         public Task Create(Forum forum)
         {
             throw new NotImplementedException();
-            
         }
 
         public Task Delete(int forumId)
@@ -31,8 +29,7 @@ namespace KataForum.Service
 
         public IEnumerable<Forum> GetAll()
         {
-            return _context.Forums
-                .Include(forum => forum.Posts);
+            return _context.Forums.Include(forum => forum.Posts);
         }
 
         public IEnumerable<ApplicationUser> GetAllActiveUsers()
@@ -42,7 +39,15 @@ namespace KataForum.Service
 
         public Forum GetById(int id)
         {
-            throw new NotImplementedException();
+            var forum = _context.Forums.Where(f => f.Id == id)
+                .Include(f => f.Posts)
+                    .ThenInclude(p => p.User)
+                .Include(f => f.Posts)
+                    .ThenInclude(p => p.PostReplies)
+                       .ThenInclude(r => r.User)
+                .FirstOrDefault();
+
+            return forum;
         }
 
         public Task UpdateForumDescriptio(int forumId, string newDescription)

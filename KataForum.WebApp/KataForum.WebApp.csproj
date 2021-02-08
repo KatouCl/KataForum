@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KataForum.Data\KataForum.Data.csproj" />
+    <ProjectReference Include="..\KataForum.Service\KataForum.Service.csproj" />
   </ItemGroup>
 
 </Project>
