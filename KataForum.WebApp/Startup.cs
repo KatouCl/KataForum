@@ -30,6 +30,7 @@ namespace KataForum.WebApp
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddScoped<IForum, ForumService>();
+            services.AddScoped<IPost, PostService>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

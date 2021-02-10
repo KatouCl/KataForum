@@ -1,0 +1,51 @@
+﻿@model KataForum.WebApp.Models.Forum.ForumTopicModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1>Добро пожаловать на @Model.Forum.Name форум</h1>
+
+@if (Model.Posts.Any())
+{
+<table class="table table-bordered table-hover">
+    <tbody>
+        @foreach(var post in Model.Posts)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Post" asp-action="Index" asp-route-id="@post.Id">
+                        @post.Title
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @post.AuthorName
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @post.DatePosted
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @post.RepliesCount
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+else { 
+    <div class="noPosts">
+        <h3>На форуме @Model.Forum.Name нет постов <br />
+            Почему бы не создать 
+            <a asp-controller="Post" asp-action="Create" asp-route-id="@Model.Forum.Id">
+               <span>пост</span> 
+            </a> 
+        </h3>
+    </div> 
+}

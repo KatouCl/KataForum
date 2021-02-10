@@ -15,7 +15,7 @@ namespace KataForum.WebApp.Views.Post
         public string AuthorId { get; set; }
         public string DatePosted { get; set; }
 
-        public ForumListingModel Forun { get; set; }
+        public ForumListingModel Forum { get; set; }
 
         public int RepliesCount { get; set; }
     }
