@@ -1,0 +1,32 @@
+﻿@model KataForum.WebApp.Models.Post.PostIndexModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<p>@Model.Title</p>
+<div>
+    Author: @Model.AuthorName (@Model.AuthorRating)
+    Created: @Model.Created
+</div>
+
+<div>
+    @Model.PostContent
+</div>
+
+@if (Model.Replies.Any())
+{
+    foreach(var reply in Model.Replies)
+    {
+        <div>
+            <div>
+                Reply Author: @reply.AuthorName 
+                Reply Created: @reply.Created
+            </div>
+
+            <div>
+                Reply @reply.ReplyContent
+            </div>
+        </div>
+    }
+}

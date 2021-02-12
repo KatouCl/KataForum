@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KataForum.WebApp.Views.Post
+namespace KataForum.WebApp.Models.Post
 {
     public class PostListingModel
     {

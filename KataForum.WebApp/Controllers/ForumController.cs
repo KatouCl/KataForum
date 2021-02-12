@@ -1,12 +1,9 @@
 ﻿using KataForum.Data;
 using KataForum.Data.Models;
 using KataForum.WebApp.Models.Forum;
-using KataForum.WebApp.Views.Post;
+using KataForum.WebApp.Models.Post;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace KataForum.WebApp.Controllers
 {

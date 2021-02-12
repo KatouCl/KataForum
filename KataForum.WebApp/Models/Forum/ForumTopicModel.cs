@@ -1,8 +1,5 @@
-﻿using KataForum.WebApp.Views.Post;
-using System;
+﻿using KataForum.WebApp.Models.Post;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace KataForum.WebApp.Models.Forum
 {
