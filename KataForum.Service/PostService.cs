@@ -17,6 +17,11 @@ namespace KataForum.Service
             _context = context;
         }
 
+        public IEnumerable<Post> GetLatestPosts(int nPosts)
+        {
+            return GetAll().OrderByDescending(post => post.Created).Take(nPosts);
+        }
+
         public async Task Add(Post post)
         {
             _context.Add(post);
