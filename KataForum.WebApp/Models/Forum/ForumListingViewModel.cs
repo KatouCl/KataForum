@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace KataForum.WebApp.Models.Forum
 {
-    public class ForumListingModel
+    public class ForumListingViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

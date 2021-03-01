@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KataForum.WebApp.Models.Post
 {
-    public class PostListingModel
+    public class PostListingViewModel
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -15,7 +15,7 @@ namespace KataForum.WebApp.Models.Post
         public string AuthorId { get; set; }
         public string DatePosted { get; set; }
 
-        public ForumListingModel Forum { get; set; }
+        public ForumListingViewModel Forum { get; set; }
 
         public int RepliesCount { get; set; }
     }

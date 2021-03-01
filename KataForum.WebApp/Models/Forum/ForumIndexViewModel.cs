@@ -7,6 +7,6 @@ namespace KataForum.WebApp.Models.Forum
 {
     public class ForumIndexModel
     {
-        public IEnumerable<ForumListingModel> ForumList { get; set; }
+        public IEnumerable<ForumListingViewModel> ForumList { get; set; }
     }
 }
