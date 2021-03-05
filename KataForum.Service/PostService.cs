@@ -17,9 +17,9 @@ namespace KataForum.Service
             _context = context;
         }
 
-        public IEnumerable<Post> GetLatestPosts(int nPosts)
+        public IEnumerable<Post> GetLatestPosts(int n)
         {
-            return GetAll().OrderByDescending(post => post.Created).Take(nPosts);
+            return GetAll().OrderByDescending(post => post.Created).Take(n);
         }
 
         public async Task Add(Post post)
@@ -59,6 +59,13 @@ namespace KataForum.Service
         {
             return string.IsNullOrEmpty(searchQuery) ? forum.Posts : forum.Posts.Where(post => post.Title.Contains(searchQuery) 
                                        || post.Content.Contains(searchQuery));
+        }
+
+        public IEnumerable<Post> GetFilteredPosts(string searchQuery)
+        {
+            return GetAll().Where(post 
+                => post.Title.Contains(searchQuery)
+                || post.Content.Contains(searchQuery));
         }
 
         public IEnumerable<Post> GetPostsByForum(int id)

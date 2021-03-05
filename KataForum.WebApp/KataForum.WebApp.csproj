@@ -18,4 +18,8 @@
     <ProjectReference Include="..\KataForum.Service\KataForum.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\css\images\users" />
+  </ItemGroup>
+
 </Project>

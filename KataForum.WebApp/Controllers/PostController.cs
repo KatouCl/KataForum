@@ -36,6 +36,7 @@ namespace KataForum.WebApp.Controllers
                 AuthorId = post.User.Id,
                 AuthorRating = post.User.Rating,
                 Created = post.Created,
+                AuthorImageUrl = post.User.ProfileImageUrl,
                 PostContent = post.Content,
                 Replies = replies,
                 ForumId = post.Forum.Id,

@@ -31,7 +31,8 @@ namespace KataForum.WebApp.Controllers
 
         private HomeIndexViewModel BuildHomeIndexModel()
         {
-            /*var latestPosts = _postService.GetLatestPosts(10);
+            /*
+            var latestPosts = _postService.GetLatestPosts(10);
             
             var posts = latestPosts.Select(post => new PostListingViewModel
             {
@@ -44,11 +45,14 @@ namespace KataForum.WebApp.Controllers
                 RepliesCount = post.Replies.Count(),
                 
                 Forum = GetForumListingForPost(post)
-            });*/
+            });
+            */
 
             return new HomeIndexViewModel
             {
-                //LatestPosts = posts,
+                /*
+                LatestPosts = posts,
+                */
                 SearchQuery = "" //TODO: search posts
             };
         }

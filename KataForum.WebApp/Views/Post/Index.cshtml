@@ -49,6 +49,7 @@
             <div class="row replyContent">
                 <div class="col-md-3 replyAuthorContainer">
                     <div class="postAuthorImage" style="background-image: url(@reply.AuthorImageUrl)"></div>
+                    @*//TODO: ПОДЧИНИТЬ ВЫВОД КАРТИНКИ ПРОФИЛЯ*@
                     <a asp-controller="Profile" asp-action="Detail" asp-route-id="@reply.AuthorId">
                         @reply.AuthorName
                     </a>
