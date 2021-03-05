@@ -16,26 +16,24 @@ namespace KataForum.WebApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IPost _postService;
-        private readonly IForum _forumService;
 
-        public HomeController(ILogger<HomeController> logger, IPost postService, IForum forumService)
+        public HomeController(ILogger<HomeController> logger, IPost postService)
         {
             _logger = logger;
             _postService = postService;
-            _forumService = forumService;
         }
 
         public IActionResult Index()
         {
             var model = BuildHomeIndexModel();
-            return View(model);
+            return View();// model
         }
 
-        private HomeIndexModel BuildHomeIndexModel()
+        private HomeIndexViewModel BuildHomeIndexModel()
         {
-            var latestPosts = _postService.GetLatestPosts(10);
+            /*var latestPosts = _postService.GetLatestPosts(10);
             
-            var posts = latestPosts.Select(post => new PostListingModel
+            var posts = latestPosts.Select(post => new PostListingViewModel
             {
                 Id = post.Id,
                 Title = post.Title,
@@ -43,23 +41,23 @@ namespace KataForum.WebApp.Controllers
                 AuthorName = post.User.UserName,
                 AuthorRating = post.User.Rating,
                 DatePosted = post.Created.ToString(),
-                RepliesCount = post.PostReplies.Count(),
+                RepliesCount = post.Replies.Count(),
                 
                 Forum = GetForumListingForPost(post)
-            });
+            });*/
 
-            return new HomeIndexModel
+            return new HomeIndexViewModel
             {
-                LatestPosts =  posts,
+                //LatestPosts = posts,
                 SearchQuery = "" //TODO: search posts
             };
         }
 
-        private ForumListingModel GetForumListingForPost(Post post)
+        private ForumListingViewModel GetForumListingForPost(Post post)
         {
             var forum = post.Forum;
 
-            return new ForumListingModel
+            return new ForumListingViewModel
             {
                 Id = forum.Id,
                 Name = forum.Title,

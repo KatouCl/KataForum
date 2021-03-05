@@ -1,4 +1,6 @@
-﻿using KataForum.Data;
+﻿using System;
+using System.Collections.Generic;
+using KataForum.Data;
 using KataForum.Data.Models;
 using KataForum.WebApp.Models.Forum;
 using KataForum.WebApp.Models.Post;
@@ -34,11 +36,13 @@ namespace KataForum.WebApp.Controllers
             return View(model);
         }
 
-        public IActionResult Topic(int id)
+        public IActionResult Topic(int id, string searchQuery)
         {
             var forum = _forumService.GetById(id);
-            var posts = forum.Posts;
-
+            var posts = new List<Post>();
+            
+            posts = _postService.GetFilteredPosts(forum, searchQuery).ToList();
+            
             var postListings = posts.Select(post => new PostListingViewModel
             {
                 Id = post.Id,
@@ -60,6 +64,11 @@ namespace KataForum.WebApp.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public IActionResult Search(int id, string searchQuery)
+        {
+            return RedirectToAction("Topic", new {id, searchQuery});
+        }
         private ForumListingViewModel BuildForumListing(Post post)
         {
             var forum = post.Forum;

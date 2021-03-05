@@ -38,6 +38,15 @@ namespace KataForum.Service
             throw new NotImplementedException();
         }
 
+        public Post GetById(int id)
+        {
+            return _context.Posts.Where(post => post.Id == id)
+                .Include(post => post.User)
+                .Include(post => post.Replies).ThenInclude(reply => reply.User)
+                .Include(post => post.Forum)
+                .First();
+        }
+
         public IEnumerable<Post> GetAll()
         {
             return _context.Posts
@@ -46,25 +55,15 @@ namespace KataForum.Service
                 .Include(post => post.Forum);
         }
 
-        public Post GetById(int id)
+        public IEnumerable<Post> GetFilteredPosts(Forum forum, string searchQuery)
         {
-            return _context.Posts.Where(post => post.Id == id)
-                .Include(post => post.User)
-                .Include(post => post.Replies)
-                    .ThenInclude(reply => reply.User)
-                .Include(post => post.Forum)
-                .First();
-        }
-
-        public IEnumerable<Post> GetFilteredPosts(string searchQuery)
-        {
-            throw new NotImplementedException();
+            return string.IsNullOrEmpty(searchQuery) ? forum.Posts : forum.Posts.Where(post => post.Title.Contains(searchQuery) 
+                                       || post.Content.Contains(searchQuery));
         }
 
         public IEnumerable<Post> GetPostsByForum(int id)
         {
-            return _context.Forums
-                .Where(forum => forum.Id == id).First()
+            return _context.Forums.First(forum => forum.Id == id)
                 .Posts;
             
         }

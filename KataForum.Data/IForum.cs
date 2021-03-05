@@ -15,6 +15,6 @@ namespace KataForum.Data
         Task Create(Forum forum);
         Task Delete(int forumId);
         Task UpdateForumTitle(int forumId, string newTitle);
-        Task UpdateForumDescriptio(int forumId, string newDescription);
+        Task UpdateForumDescription(int forumId, string newDescription);
     }
 }

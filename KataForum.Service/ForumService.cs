@@ -43,14 +43,14 @@ namespace KataForum.Service
                 .Include(f => f.Posts)
                     .ThenInclude(p => p.User)
                 .Include(f => f.Posts)
-                    .ThenInclude(p => p.PostReplies)
+                    .ThenInclude(p => p.Replies)
                        .ThenInclude(r => r.User)
                 .FirstOrDefault();
 
             return forum;
         }
 
-        public Task UpdateForumDescriptio(int forumId, string newDescription)
+        public Task UpdateForumDescription(int forumId, string newDescription)
         {
             throw new NotImplementedException();
         }

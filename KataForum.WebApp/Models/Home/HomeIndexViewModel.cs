@@ -3,10 +3,10 @@ using KataForum.WebApp.Models.Post;
 
 namespace KataForum.WebApp.Models.Home
 {
-    public class HomeIndexModel
+    public class HomeIndexViewModel
     {
         public string SearchQuery { get; set; }
-        public IEnumerable<PostListingModel> LatestPosts { get; set; }
+        public IEnumerable<PostListingViewModel> LatestPosts { get; set; }
         
     }
 }

@@ -16,25 +16,24 @@ namespace KataForum.WebApp.Controllers
         private readonly IForum _forumService;
 
         private static UserManager<ApplicationUser> _userManager;
+
         public PostController(IPost postService, IForum forumService, UserManager<ApplicationUser> userManager)
         {
             _postService = postService;
             _forumService = forumService;
             _userManager = userManager;
         }
-        
+
         public IActionResult Index(int id)
         {
             var post = _postService.GetById(id);
             var replies = BuildPostReplies(post.Replies);
-            
+
             var model = new PostIndexViewModel
             {
                 Id = post.Id,
                 Title = post.Title,
                 AuthorId = post.User.Id,
-                AuthorName = post.User.UserName,
-                AuthorImageUrl = post.User.ProfileImageUrl,
                 AuthorRating = post.User.Rating,
                 Created = post.Created,
                 PostContent = post.Content,
@@ -42,9 +41,9 @@ namespace KataForum.WebApp.Controllers
                 ForumId = post.Forum.Id,
                 ForumName = post.Forum.Title,
                 IsAuthorAdmin = IsAuthorAdmin(post.User)
-        };
+            };
 
-        return View(model);
+            return View(model);
         }
 
         public IActionResult Create(int id)
@@ -61,7 +60,7 @@ namespace KataForum.WebApp.Controllers
 
             return View(model);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> AddPost(NewPostViewModel model)
         {
@@ -73,7 +72,7 @@ namespace KataForum.WebApp.Controllers
 
             //TODO: Implement User Rating Manager 
 
-            return RedirectToAction("Index", "Post",new {id = post.Id});
+            return RedirectToAction("Index", "Post", new {id = post.Id});
         }
 
         private Post BuildPost(NewPostViewModel model, ApplicationUser user)
@@ -94,7 +93,6 @@ namespace KataForum.WebApp.Controllers
         {
             return postReplies.Select(reply => new PostReplyViewModel
             {
-                
                 Id = reply.Id,
                 AuthorName = reply.User.UserName,
                 AuthorId = reply.User.Id,
@@ -105,11 +103,12 @@ namespace KataForum.WebApp.Controllers
                 IsAuthorAdmin = IsAuthorAdmin(reply.User)
             });
         }
-        
+
         private bool IsAuthorAdmin(ApplicationUser user)
         {
             return _userManager.GetRolesAsync(user)
-                .Result.Contains("Admin");
+                .Result
+                .Contains("Admin");
         }
     }
 }
