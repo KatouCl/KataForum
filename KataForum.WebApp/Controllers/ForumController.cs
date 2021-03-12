@@ -76,7 +76,7 @@ namespace KataForum.WebApp.Controllers
             return BuildForumListing(forum);
         }
 
-        private IActionResult Create()
+        public IActionResult Create()
         {
             var model = new AddForumViewModel();
 
