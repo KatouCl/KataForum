@@ -38,6 +38,12 @@ namespace KataForum.Service
             throw new NotImplementedException();
         }
 
+        public async Task AddReply(PostReply reply)
+        {
+            _context.Add(reply);
+            await _context.SaveChangesAsync();
+        }
+
         public Post GetById(int id)
         {
             return _context.Posts.Where(post => post.Id == id)

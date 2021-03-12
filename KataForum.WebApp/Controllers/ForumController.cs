@@ -6,6 +6,7 @@ using KataForum.WebApp.Models.Forum;
 using KataForum.WebApp.Models.Post;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KataForum.WebApp.Controllers
 {
@@ -74,6 +75,28 @@ namespace KataForum.WebApp.Controllers
             var forum = post.Forum;
             return BuildForumListing(forum);
         }
+
+        private IActionResult Create()
+        {
+            var model = new AddForumViewModel();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddForum(AddForumViewModel model)
+        {
+            var forum = new Forum
+            {
+                Title = model.Title,
+                Description = model.Description,
+                Created = DateTime.Now
+            };
+
+            await _forumService.Create(forum);
+            return RedirectToAction("Index", "Forum");
+        }
+        
         private ForumListingViewModel BuildForumListing(Forum forum)
         {
             return new ForumListingViewModel

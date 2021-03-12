@@ -1,6 +1,8 @@
-﻿using KataForum.Data;
+﻿using System.Threading.Tasks;
+using KataForum.Data;
 using KataForum.Data.Models;
 using KataForum.WebApp.Models.Profile;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,5 +43,17 @@ namespace KataForum.WebApp.Controllers
             
             return View(model);
         }
+
+        /*[HttpPost]
+        public async Task<IActionResult> UploadProfileImage(IFormFile file)
+        {
+            var userId = _userManager.GetUserId(User);
+            
+            //Connect to an Azure Storage Account Container 
+            //Get Blog Container 
+            
+            //
+        }
+        */
     }
 }

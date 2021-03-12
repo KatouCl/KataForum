@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KataForum.WebApp.Models.Reply;
 
 namespace KataForum.WebApp.Controllers
 {
@@ -14,14 +15,20 @@ namespace KataForum.WebApp.Controllers
     {
         private readonly IPost _postService;
         private readonly IForum _forumService;
+        private readonly IApplicationUser _userService;
 
         private static UserManager<ApplicationUser> _userManager;
 
-        public PostController(IPost postService, IForum forumService, UserManager<ApplicationUser> userManager)
+        public PostController(
+            IPost postService,
+            IForum forumService,
+            UserManager<ApplicationUser> userManager,
+            IApplicationUser userService)
         {
             _postService = postService;
             _forumService = forumService;
             _userManager = userManager;
+            _userService = userService;
         }
 
         public IActionResult Index(int id)
@@ -69,9 +76,8 @@ namespace KataForum.WebApp.Controllers
             var user = _userManager.FindByIdAsync(userId).Result;
             var post = BuildPost(model, user);
 
-            _postService.Add(post).Wait();
-
-            //TODO: Implement User Rating Manager 
+            await _postService.Add(post);
+            await _userService.UpdateUserRating(userId, typeof(Post));
 
             return RedirectToAction("Index", "Post", new {id = post.Id});
         }

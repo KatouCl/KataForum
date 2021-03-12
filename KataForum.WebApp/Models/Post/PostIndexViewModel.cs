@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using KataForum.WebApp.Models.Reply;
 
 namespace KataForum.WebApp.Models.Post
 {
