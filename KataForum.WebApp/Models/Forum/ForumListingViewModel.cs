@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace KataForum.WebApp.Models.Forum
+﻿namespace KataForum.WebApp.Models.Forum
 {
     public class ForumListingViewModel
     {
@@ -11,5 +6,9 @@ namespace KataForum.WebApp.Models.Forum
         public string Name { get; set; }
         public string Description { get; set; }
         public string ImageUrl  { get; set; }
+        
+        public int NumberOfUsers { get; set; }
+        public int NumberOfPosts { get; set; }
+        public bool HasRecentPost { get; set; }
     }
 }

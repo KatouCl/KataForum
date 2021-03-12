@@ -26,12 +26,15 @@ namespace KataForum.WebApp.Controllers
                 .Select(forum => new ForumListingViewModel{
                     Id = forum.Id,
                     Name = forum.Title,
-                    Description = forum.Description
+                    Description = forum.Description,
+                    NumberOfPosts = forum.Posts?.Count() ?? 0,
+                    NumberOfUsers = _forumService.GetActiveUsers(forum.Id).Count(),
+                    HasRecentPost = _forumService.HasRecentPost(forum.Id)
                 });
 
             var model = new ForumIndexModel
             {
-                ForumList = forums
+                ForumList = forums.OrderBy(f => f.Name)
             };
 
             return View(model);

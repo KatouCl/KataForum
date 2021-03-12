@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\css\images\theme" />
     <Folder Include="wwwroot\css\images\users" />
   </ItemGroup>
 

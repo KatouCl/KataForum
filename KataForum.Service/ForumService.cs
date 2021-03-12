@@ -35,11 +35,6 @@ namespace KataForum.Service
             return _context.Forums.Include(forum => forum.Posts);
         }
 
-        public IEnumerable<ApplicationUser> GetAllActiveUsers()
-        {
-            throw new NotImplementedException();
-        }
-
         public Forum GetById(int id)
         {
             var forum = _context.Forums.Where(f => f.Id == id)
@@ -56,6 +51,30 @@ namespace KataForum.Service
         public Task UpdateForumDescription(int forumId, string newDescription)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<ApplicationUser> GetActiveUsers(int forumId)
+        {
+            var posts = GetById(forumId).Posts;
+
+            if (posts != null || !posts.Any())
+            {
+                var postUser = posts.Select(p => p.User);
+                var replyUsers = posts.SelectMany(p => p.Replies)
+                    .Select(u => u.User);
+                
+                return postUser.Union(replyUsers).Distinct();
+            }
+
+            return new List<ApplicationUser>();
+        }
+
+        public bool HasRecentPost(int forumId)
+        {
+            const int houseAgo = 12;
+            var window = DateTime.Now.AddHours(-houseAgo);
+
+            return GetById(forumId).Posts.Any(post => post.Created > window);
         }
 
         public Task UpdateForumTitle(int forumId, string newTitle)

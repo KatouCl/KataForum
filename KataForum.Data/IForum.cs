@@ -10,11 +10,12 @@ namespace KataForum.Data
     {
         Forum GetById(int id);
         IEnumerable<Forum> GetAll();
-        IEnumerable<ApplicationUser> GetAllActiveUsers();
+        IEnumerable<ApplicationUser> GetActiveUsers(int forumId);
 
         Task Create(Forum forum);
         Task Delete(int forumId);
         Task UpdateForumTitle(int forumId, string newTitle);
         Task UpdateForumDescription(int forumId, string newDescription);
+        bool HasRecentPost(int forumId);
     }
 }
