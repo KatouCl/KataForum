@@ -35,7 +35,7 @@
             @if (!User.Identity.IsAuthenticated)
             {
                 <p>
-                    <span>You must be a <a asp-controller="Account" asp-action="Register">registered</a> member to create a new post.</span>
+                    <span>You must be a <a asp-area="Identity" asp-page="/Account/Register">registered member</a> to create a new post.</span>
                 </p>
             }
         </div>
@@ -85,8 +85,13 @@
             <div class="noPosts">
                 <i class="material-icons md-72">question_answer</i>
                 <h3>
-                    It looks like there are no @Model.Forum.Name posts yet.
-                    Why not <a asp-controller="Post" asp-action="Create" asp-route-id="@Model.Forum.Id"><span>creating</span></a>
+                    It looks like there are no @Model.Forum.Name posts yet. 
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                       <a asp-controller="Post" asp-action="Create" asp-route-id="@Model.Forum.Id">
+                           <span>creating</span>
+                       </a> 
+                    }
                 </h3>
             </div>
         }

@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KataForum.Data", "KataForum
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KataForum.Service", "KataForum.Service\KataForum.Service.csproj", "{12D44EAB-2086-4BB6-9241-E0FCB82DFE41}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KataForum.Tests", "KataForum.Tests\KataForum.Tests.csproj", "{502008F6-826C-45F1-ADE7-A9280C866BCE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{12D44EAB-2086-4BB6-9241-E0FCB82DFE41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12D44EAB-2086-4BB6-9241-E0FCB82DFE41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12D44EAB-2086-4BB6-9241-E0FCB82DFE41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{502008F6-826C-45F1-ADE7-A9280C866BCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{502008F6-826C-45F1-ADE7-A9280C866BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{502008F6-826C-45F1-ADE7-A9280C866BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{502008F6-826C-45F1-ADE7-A9280C866BCE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

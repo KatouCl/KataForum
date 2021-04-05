@@ -7,6 +7,7 @@ using KataForum.WebApp.Models.Post;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace KataForum.WebApp.Controllers
 {
@@ -79,6 +80,7 @@ namespace KataForum.WebApp.Controllers
             return BuildForumListing(forum);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             var model = new AddForumViewModel();
@@ -87,6 +89,7 @@ namespace KataForum.WebApp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddForum(AddForumViewModel model)
         {
             var forum = new Forum

@@ -17,7 +17,7 @@ namespace KataForum.Data
 
         Task Add(Post post);
         Task Delete(int id);
-        Task EditPostContent(int id, string newContent);
+        Task EditPostContent(Post post);
         Task AddReply(PostReply reply);
     }
 }

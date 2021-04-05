@@ -3,12 +3,14 @@ using System.Threading.Tasks;
 using KataForum.Data;
 using KataForum.Data.Models;
 using KataForum.WebApp.Models.Profile;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KataForum.WebApp.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -57,6 +59,7 @@ namespace KataForum.WebApp.Controllers
         }
         */
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             var profile = _userService.GetAll()

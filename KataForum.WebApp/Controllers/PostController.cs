@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KataForum.WebApp.Models.Reply;
+using Microsoft.AspNetCore.Authorization;
 
 namespace KataForum.WebApp.Controllers
 {
@@ -19,8 +20,7 @@ namespace KataForum.WebApp.Controllers
 
         private static UserManager<ApplicationUser> _userManager;
 
-        public PostController(
-            IPost postService,
+        public PostController(IPost postService,
             IForum forumService,
             UserManager<ApplicationUser> userManager,
             IApplicationUser userService)
@@ -41,6 +41,7 @@ namespace KataForum.WebApp.Controllers
                 Id = post.Id,
                 Title = post.Title,
                 AuthorId = post.User.Id,
+                AuthorName = post.User.UserName,
                 AuthorRating = post.User.Rating,
                 Created = post.Created,
                 AuthorImageUrl = post.User.ProfileImageUrl,
@@ -54,6 +55,7 @@ namespace KataForum.WebApp.Controllers
             return View(model);
         }
 
+        [Authorize]
         public IActionResult Create(int id)
         {
             var forum = _forumService.GetById(id);
@@ -62,14 +64,52 @@ namespace KataForum.WebApp.Controllers
             {
                 ForumName = forum.Title,
                 ForumId = forum.Id,
-                ForumImageUrl = forum.ImageUrl,
                 AuthorName = User.Identity.Name
             };
 
             return View(model);
         }
 
+        public async Task<IActionResult> EditPost(int id)
+        {
+            var post = _postService.GetById(id);
+            
+            var userId = _userManager.GetUserId(User);
+            var user = _userManager.FindByIdAsync(userId).Result;
+
+            if (post.User.Id == user.Id)
+            { 
+                var model = new EditPostViewModel
+                {
+                    ForumId = post.Forum.Id,
+                    ForumName = post.Forum.Title,
+  
+                    PostId = post.Id,
+                    Content = post.Content,
+                    Title = post.Title
+                };
+  
+                return View(model);      
+            }
+            
+            return Content("Вы не можете изменить данный пост так как вы не автор");      
+        }
+
+        public async Task<IActionResult> EditPostContent(EditPostViewModel model)
+        {
+            var userId = _userManager.GetUserId(User);
+            var user = await _userManager.FindByIdAsync(userId);
+            var post = BuildPostEdit(model, user);
+            
+            await _postService.EditPostContent(post);
+
+            return RedirectToAction("Index", "Post", new {id = post.Id});
+        }
+
+        
+
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddPost(NewPostViewModel model)
         {
             var userId = _userManager.GetUserId(User);
@@ -82,12 +122,36 @@ namespace KataForum.WebApp.Controllers
             return RedirectToAction("Index", "Post", new {id = post.Id});
         }
 
+        [Authorize]
+        public async Task<IActionResult> Delete(int id)
+        {
+            //todo: сделать 
+            await _postService.Delete(id);
+
+            return Redirect("~/Forum/");
+        }
+
         private Post BuildPost(NewPostViewModel model, ApplicationUser user)
         {
             var forum = _forumService.GetById(model.ForumId);
 
             return new Post
             {
+                Title = model.Title,
+                Content = model.Content,
+                Created = DateTime.Now,
+                User = user,
+                Forum = forum
+            };
+        }
+        
+        private Post BuildPostEdit(EditPostViewModel model, ApplicationUser user)
+        {
+            var forum = _forumService.GetById(model.ForumId);
+
+            return new Post
+            {
+                Id = model.PostId,
                 Title = model.Title,
                 Content = model.Content,
                 Created = DateTime.Now,

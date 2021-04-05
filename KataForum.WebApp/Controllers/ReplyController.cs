@@ -2,14 +2,14 @@
 using System.Threading.Tasks;
 using KataForum.Data;
 using KataForum.Data.Models;
-using KataForum.WebApp.Models.Post;
 using KataForum.WebApp.Models.Reply;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace KataForum.WebApp.Controllers
 {
+    [Authorize]
     public class ReplyController : Controller
     {
         private readonly IPost _postService;

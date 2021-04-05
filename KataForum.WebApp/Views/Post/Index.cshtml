@@ -1,5 +1,6 @@
 ﻿@model KataForum.WebApp.Models.Post.PostIndexViewModel
 
+
 <div class="container body-content">
     <div class="row postHeader">
         <div class="postHeading">
@@ -28,6 +29,25 @@
                 @Html.Raw(Model.PostContent)
             </div>
         </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            //todo: Сделать проверку пользователя на его ID а не по имени
+            if (Model.AuthorName == User.Identity.Name || User.IsInRole("Admin"))
+            {
+                <div>
+                    <span>
+                        <a asp-controller="Post" asp-action="EditPost" asp-route-id="@Model.Id" class="btn">
+                            Edit
+                        </a>
+                    </span>
+                    <span>
+                        <a asp-controller="Post" asp-action="Delete" asp-route-id="@Model.Id" class="btn">
+                            Delete 
+                        </a>
+                    </span>
+                </div>
+            }
+        }
     </div>
     <div class="row" id="replyDivider"></div>
 

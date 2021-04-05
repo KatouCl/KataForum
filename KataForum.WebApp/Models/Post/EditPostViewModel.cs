@@ -2,11 +2,11 @@
 
 namespace KataForum.WebApp.Models.Post
 {
-    public class NewPostViewModel
+    public class EditPostViewModel
     {
+        public int PostId { get; set; }
         public string ForumName { get; set; }
         public int ForumId { get; set; }
-        public string AuthorName { get; set; }
         [Required(ErrorMessage = "Заполните название поста")]
         public string Title { get; set; }
         [Required(ErrorMessage = "Заполните контент поста")]

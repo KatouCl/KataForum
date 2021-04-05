@@ -1,10 +1,8 @@
 ﻿using KataForum.Data;
 using KataForum.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace KataForum.Service
@@ -28,14 +26,21 @@ namespace KataForum.Service
             await _context.SaveChangesAsync();
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            var post = GetById(id);
+            
+            _context.Attach(post);
+            _context.Entry(post).State = EntityState.Deleted;
+            
+            await _context.SaveChangesAsync();
         }
 
-        public Task EditPostContent(int id, string newContent)
+        public async Task EditPostContent(Post post)
         {
-            throw new NotImplementedException();
+            _context.Entry(await _context.Posts.FirstOrDefaultAsync(x => x.Id == post.Id))
+                .CurrentValues.SetValues(post);
+            await _context.SaveChangesAsync();
         }
 
         public async Task AddReply(PostReply reply)
@@ -69,9 +74,11 @@ namespace KataForum.Service
 
         public IEnumerable<Post> GetFilteredPosts(string searchQuery)
         {
+            var normalzed = searchQuery.ToLower();
+            
             return GetAll().Where(post 
-                => post.Title.Contains(searchQuery)
-                || post.Content.Contains(searchQuery));
+                => post.Title.ToLower().Contains(normalzed)
+                || post.Content.ToLower().Contains(normalzed));
         }
 
         public IEnumerable<Post> GetPostsByForum(int id)

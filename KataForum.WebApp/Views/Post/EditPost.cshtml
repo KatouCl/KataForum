@@ -1,12 +1,18 @@
-﻿@model KataForum.WebApp.Models.Post.NewPostViewModel
+﻿@model KataForum.WebApp.Models.Post.EditPostViewModel
 
-<h1>New Post | @Model.ForumName</h1>
+@{
+    ViewBag.Title = "Edit Post";
+    Layout = "_Layout";
+}
+<h1>Edit Post | @Model.ForumName</h1>
 
-<form asp-action="AddPost" method="post" id="addPostForm">
+<form asp-controller="Post" asp-action="EditPostContent" id="editPostForm">
     <input asp-for="ForumId" type="hidden" />
+    <input asp-for="ForumName" type="hidden" />
+    <input asp-for="PostId" type="hidden" />
+    <input asp-for="Title" type="hidden" />
     <div class="form-group">
         <label asp-for="Title"></label>
-        <input asp-for="Title" class="form-control" />
         <span asp-validation-for="Title"></span>
     </div>
     <div class="form-group">
