@@ -6,7 +6,7 @@ namespace KataForum.WebApp.Models.Home
     public class HomeIndexViewModel
     {
         public string SearchQuery { get; set; }
-        public IEnumerable<PostListingViewModel> LatestPosts { get; set; }
+        public IEnumerable<PostIndexViewModel> LatestPosts { get; set; }
         
     }
 }

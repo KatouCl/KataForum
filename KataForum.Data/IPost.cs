@@ -14,6 +14,8 @@ namespace KataForum.Data
         IEnumerable<Post> GetFilteredPosts(string searchQuery);
         IEnumerable<Post> GetPostsByForum(int id);
         IEnumerable<Post> GetLatestPosts(int n);
+        IEnumerable<Post> GetPostsByUser(string id);
+        IEnumerable<Post> GetPostsByFave(string id);
 
         Task Add(Post post);
         Task Delete(int id);

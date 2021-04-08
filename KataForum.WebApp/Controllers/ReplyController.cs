@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using KataForum.Data;
 using KataForum.Data.Models;
@@ -66,6 +67,19 @@ namespace KataForum.WebApp.Controllers
             return RedirectToAction("Index", "Post", new {id = model.PostId});
         }
 
+        public async Task<IActionResult> Edit(int id)
+        {
+
+
+            return View();
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+
+
+            return RedirectToAction("Index", "Post");
+        }
         private PostReply BuildReply(PostReplyViewModel model, ApplicationUser user)
         {
             var post = _postService.GetById(model.PostId);

@@ -20,6 +20,16 @@ namespace KataForum.Service
             return GetAll().OrderByDescending(post => post.Created).Take(n);
         }
 
+        public IEnumerable<Post> GetPostsByUser(string id)
+        {
+            return GetAll().Where(post => post.User.Id == id);
+        }
+
+        public IEnumerable<Post> GetPostsByFave(string id)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public async Task Add(Post post)
         {
             _context.Add(post);

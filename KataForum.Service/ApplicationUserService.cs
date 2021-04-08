@@ -26,6 +26,11 @@ namespace KataForum.Service
             return _context.ApplicationUsers;
         }
 
+        public IEnumerable<Post> GetByUserId(string id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task SetProfileImage(string id, Uri uri)
         {
             var user = GetById(id);
@@ -52,6 +57,20 @@ namespace KataForum.Service
                 inc = 1;
 
             return userRating += inc;
+        } 
+        
+        private int CalculateUserRating(Type type, int userRating, bool status)
+        {
+            var inc = 0;
+            if (status == false)
+            {
+                if (type == typeof(Post))
+                    inc = 1;
+                if (type == typeof(PostReply))
+                    inc = 1;
+            }
+
+            return userRating -= inc;
         } 
     }
 }

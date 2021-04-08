@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace KataForum.Data.Models
 {
@@ -11,5 +10,7 @@ namespace KataForum.Data.Models
         public string ProfileImageUrl { get; set; }
         public DateTime MemberSince { get; set; }
         public bool isActive { get; set; }
+        
+        public virtual IEnumerable<Post> Faves { get; set; }
     }
 }

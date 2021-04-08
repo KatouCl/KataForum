@@ -1,0 +1,64 @@
+﻿@model KataForum.WebApp.Models.Post.FavesListingViewModel
+
+@{
+    ViewBag.Title = "Мои посты";
+}
+<div class="row forumIndexContent">
+    <h3>
+        Избранные темы:
+    </h3>
+    <table class="table table-hover table-bordered" id="searchIndexTable">
+        <tbody>
+        @if (Model.Posts.Any())
+        {
+            foreach (var post in Model.Posts)
+            {
+                <tr>
+                    <td>
+                        <div class="postData">
+                            <div class="postTitle">
+                                <a asp-controller="Post" asp-action="Index" asp-route-id="@post.Id">@post.Title</a>
+                            </div>
+                            <div class="forumSubTitle">
+                                <div>
+                                    из:
+                                    <span class="postForum">
+                                        <a asp-controller="Forum" asp-action="Topic" asp-route-id="@post.Forum.Id">@post.Forum.Name</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="forumPostCount">
+                            Ответы: @post.RepliesCount.ToString()
+                        </div>
+                    </td>
+                    <td>
+                        <div class="postDate">
+                            @post.DatePosted
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <div class="noPosts">
+                <h3>
+                    Избранных постов нет<br/>
+                </h3>
+            </div>
+        }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts
+{
+    <script>
+        function clearThis(target) {
+            target.value = "";
+        }
+    </script>
+}

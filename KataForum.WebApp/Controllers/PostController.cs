@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KataForum.WebApp.Models.Forum;
 using KataForum.WebApp.Models.Reply;
 using Microsoft.AspNetCore.Authorization;
 
@@ -125,10 +126,73 @@ namespace KataForum.WebApp.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
-            //todo: сделать 
             await _postService.Delete(id);
 
             return Redirect("~/Forum/");
+        }
+
+        public async Task<IActionResult> MyThreads()
+        {
+            var userId = _userManager.GetUserId(User);
+            var posts = _postService.GetPostsByUser(userId);
+
+            var postListings = posts.Select(post => new PostListingViewModel
+            {
+                Id = post.Id,
+                AuthorId = post.User.Id,
+                AuthorName = post.User.UserName,
+                AuthorRating = post.User.Rating,
+                Title = post.Title,
+                DatePosted = post.Created.ToString(),
+                RepliesCount = post.Replies.Count(),
+                Forum = BuildForumListing(post)
+                    
+            });
+
+            var model = new MythreadListingViewModel
+            {
+                Posts = postListings
+            };
+            
+            return View(model);
+        }
+
+        public async Task<IActionResult> Fave()
+        {
+            var userId = _userManager.GetUserId(User);
+            var posts = _postService.GetPostsByFave(userId);
+            
+            var postListings = posts.Select(post => new PostListingViewModel
+            {
+                Id = post.Id,
+                AuthorId = post.User.Id,
+                AuthorName = post.User.UserName,
+                AuthorRating = post.User.Rating,
+                Title = post.Title,
+                DatePosted = post.Created.ToString(),
+                RepliesCount = post.Replies.Count(),
+                Forum = BuildForumListing(post)
+            });
+
+            var model = new FavesListingViewModel
+            {
+                Posts = postListings
+            };
+            
+            return View();
+        }
+        
+        private ForumListingViewModel BuildForumListing(Post post)
+        {
+            var forum = post.Forum;
+            
+            return new ForumListingViewModel
+            {
+                Id = forum.Id,
+                ImageUrl = forum.ImageUrl,
+                Name = forum.Title,
+                Description = forum.Description
+            };
         }
 
         private Post BuildPost(NewPostViewModel model, ApplicationUser user)
